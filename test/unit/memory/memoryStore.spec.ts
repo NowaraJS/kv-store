@@ -261,11 +261,11 @@ describe('MemoryStore', () => {
 			const store = new MemoryStore(100); // 100ms cleanup interval
 
 			// Create multiple short-lived entries that will expire
-			for (let i = 0; i < 5; i++)
+			for (let i = 0; i < 5; ++i)
 				store.set(`temp${i}`, `value${i}`, 1); // 1 second TTL
 
 			// Create some entries that won't expire
-			for (let i = 0; i < 3; i++)
+			for (let i = 0; i < 3; ++i)
 				store.set(`persist${i}`, `value${i}`, 60); // 60 seconds TTL
 
 			// Verify entries exist
@@ -410,7 +410,7 @@ describe('MemoryStore', () => {
 			const start = performance.now();
 
 			// Perform many operations
-			for (let i = 0; i < 1000; i++) {
+			for (let i = 0; i < 1000; ++i) {
 				store.set(`key${i}`, `value${i}`, 60);
 				store.get<string>(`key${i}`);
 				store.increment(`counter${i}`);
@@ -459,7 +459,7 @@ describe('MemoryStore', () => {
 			// Simulate concurrent increments
 			store.set('counter', 0);
 
-			for (let i = 0; i < 100; i++)
+			for (let i = 0; i < 100; ++i)
 				store.increment('counter');
 
 			expect(store.get<number>('counter')).toBe(100);

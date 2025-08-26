@@ -25,11 +25,11 @@
 		"@eslint/js": "^9.34.0",
 		"@nowarajs/error": "^1.1.8",
 		"@stylistic/eslint-plugin": "^5.2.3",
-		"@types/bun": "^1.2.20",
+		"@types/bun": "^1.2.21",
 		"eslint": "^9.34.0",
 		"globals": "^16.3.0",
 		"ioredis": "^5.7.0",
-		"typescript-eslint": "^8.40.0",
+		"typescript-eslint": "^8.41.0",
 		"typescript": "^5.9.2"
 	},
 	"peerDependencies": {
@@ -44,7 +44,8 @@
 	"exports": {
 		"./enums": "./dist/enums/index.js",
 		"./types": "./dist/types/index.js",
-		".": "./dist/index.js"
+		"./memory": "./dist/memory/index.js",
+		"./ioredis": "./dist/ioredis/index.js"
 	},
 	"changelog": {
 		"types": {
