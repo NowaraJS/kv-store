@@ -26,8 +26,11 @@ await Bun.build({
 		// # ————————— Types ————————— #
 		'./source/types/index.ts',
 
-		// # ————————— Root ————————— #
-		'./source/index.ts'
+		// # ————————— MemoryStore ————————— #
+		'./source/memory/index.ts',
+
+		// # ————————— IoRedisStore ————————— #
+		'./source/ioredis/index.ts'
 	],
 	outdir: './dist',
 	splitting: true,
