@@ -23,7 +23,7 @@
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.34.0",
-		"@nowarajs/error": "^1.1.8",
+		"@nowarajs/error": "^1.1.9",
 		"@stylistic/eslint-plugin": "^5.2.3",
 		"@types/bun": "^1.2.21",
 		"eslint": "^9.34.0",
@@ -33,7 +33,7 @@
 		"typescript": "^5.9.2"
 	},
 	"peerDependencies": {
-		"@nowarajs/error": "^1.1.8",
+		"@nowarajs/error": "^1.1.9",
 		"ioredis": "latest"
 	},
 	"peerDependenciesMeta": {
