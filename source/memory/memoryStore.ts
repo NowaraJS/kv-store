@@ -1,7 +1,7 @@
 import { BaseError } from '@nowarajs/error';
 
 import { KV_STORE_ERROR_KEYS } from '#/enums/kvStoreErrorKeys';
-import type { KvStore } from '#/types/store';
+import type { KvStore } from '#/types/kvStore';
 import type { MemoryStoreEntry } from './types/memoryStoreEntry';
 
 /**
