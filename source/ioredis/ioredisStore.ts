@@ -3,7 +3,7 @@ import { BaseError } from '@nowarajs/error';
 import { Redis, type RedisOptions } from 'ioredis';
 
 import { KV_STORE_ERROR_KEYS } from '#/enums/kvStoreErrorKeys';
-import type { KvStore } from '#/types/store';
+import type { KvStore } from '#/types/kvStore';
 
 /**
  * Redis-based key-value store implementation using ioredis client.
