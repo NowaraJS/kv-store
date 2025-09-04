@@ -1,4 +1,24 @@
 
+## v1.1.4
+
+[compare changes](https://github.com/NowaraJS/kv-store/compare/v1.1.3...v1.1.4)
+
+### 🧹 Refactors
+
+- **🧹:** [Rename files to kebab-case and refacto BaseError V1.3] ([1ac69c5](https://github.com/NowaraJS/kv-store/commit/1ac69c5))
+
+### 📦 Build
+
+- **📦:** [Update devDependencies for improved compatibility] ([29e0873](https://github.com/NowaraJS/kv-store/commit/29e0873))
+
+### 🦉 Chore
+
+- **🦉:** [Add Dependabot configuration for package updates] ([2e69a0a](https://github.com/NowaraJS/kv-store/commit/2e69a0a))
+
+### ❤️ Contributors
+
+- Komiroko <komiriko@pm.me>
+
 ## v1.1.3
 
 [compare changes](https://github.com/NowaraJS/kv-store/compare/v1.1.2...v1.1.3)
