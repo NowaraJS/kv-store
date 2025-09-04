@@ -1,1 +1,1 @@
-export type { KvStore } from './kvStore';
+export type { KvStore } from './kv-store';
