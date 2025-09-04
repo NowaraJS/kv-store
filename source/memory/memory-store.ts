@@ -1,8 +1,8 @@
 import { BaseError } from '@nowarajs/error';
 
-import { KV_STORE_ERROR_KEYS } from '#/enums/kvStoreErrorKeys';
-import type { KvStore } from '#/types/kvStore';
-import type { MemoryStoreEntry } from './types/memoryStoreEntry';
+import { KV_STORE_ERROR_KEYS } from '#/enums/kv-store-error-keys';
+import type { KvStore } from '#/types/kv-store';
+import type { MemoryStoreEntry } from './types/memory-store-entry';
 
 /**
  * In-memory key-value store implementation with automatic cleanup of expired entries.
@@ -98,9 +98,7 @@ export class MemoryStore implements KvStore {
 
 		// If key exists, validate it's a number (like Redis behavior)
 		if (current !== null && typeof current !== 'number')
-			throw new BaseError({
-				message: KV_STORE_ERROR_KEYS.NOT_INTEGER
-			});
+			throw new BaseError(KV_STORE_ERROR_KEYS.NOT_INTEGER);
 
 		const currentValue = current ?? 0;
 		const newValue = currentValue + amount;
@@ -131,9 +129,7 @@ export class MemoryStore implements KvStore {
 
 		// If key exists, validate it's a number (like Redis behavior)
 		if (current !== null && typeof current !== 'number')
-			throw new BaseError({
-				message: KV_STORE_ERROR_KEYS.NOT_INTEGER
-			});
+			throw new BaseError(KV_STORE_ERROR_KEYS.NOT_INTEGER);
 
 		const currentValue = current ?? 0;
 		const newValue = currentValue - amount;

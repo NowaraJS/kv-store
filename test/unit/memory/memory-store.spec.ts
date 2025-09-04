@@ -1,8 +1,8 @@
 import { describe, expect, test, beforeEach, afterEach } from 'bun:test';
 import { BaseError } from '@nowarajs/error';
 
-import { MemoryStore } from '#/memory/memoryStore';
-import { KV_STORE_ERROR_KEYS } from '#/enums/kvStoreErrorKeys';
+import { MemoryStore } from '#/memory/memory-store';
+import { KV_STORE_ERROR_KEYS } from '#/enums/kv-store-error-keys';
 
 describe('MemoryStore', () => {
 	describe('Basic Operations', () => {

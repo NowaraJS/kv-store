@@ -2,8 +2,8 @@
 import { BaseError } from '@nowarajs/error';
 import { Redis, type RedisOptions } from 'ioredis';
 
-import { KV_STORE_ERROR_KEYS } from '#/enums/kvStoreErrorKeys';
-import type { KvStore } from '#/types/kvStore';
+import { KV_STORE_ERROR_KEYS } from '#/enums/kv-store-error-keys';
+import type { KvStore } from '#/types/kv-store';
 
 /**
  * Redis-based key-value store implementation using ioredis client.
@@ -38,10 +38,7 @@ export class IoRedisStore implements KvStore {
 		try {
 			await this._client.connect();
 		} catch (e) {
-			throw new BaseError({
-				message: KV_STORE_ERROR_KEYS.CONNECTION_FAILED,
-				cause: e
-			});
+			throw new BaseError(KV_STORE_ERROR_KEYS.CONNECTION_FAILED, e);
 		}
 	}
 
@@ -54,10 +51,7 @@ export class IoRedisStore implements KvStore {
 		try {
 			await this._client.quit();
 		} catch (e) {
-			throw new BaseError({
-				message: KV_STORE_ERROR_KEYS.CLOSING_CONNECTION_FAILED,
-				cause: e
-			});
+			throw new BaseError(KV_STORE_ERROR_KEYS.CLOSING_CONNECTION_FAILED, e);
 		}
 	}
 
@@ -120,15 +114,13 @@ export class IoRedisStore implements KvStore {
 		if (current !== null) {
 			const parsed = Number(current);
 			if (Number.isNaN(parsed))
-				throw new BaseError({
-					message: KV_STORE_ERROR_KEYS.NOT_INTEGER
-				});
+				throw new BaseError(KV_STORE_ERROR_KEYS.NOT_INTEGER);
 		}
 
 		if (amount === 1)
-			return await this._client.incr(key);
+			return this._client.incr(key);
 
-		return await this._client.incrby(key, amount);
+		return this._client.incrby(key, amount);
 	}
 
 	/**
@@ -148,15 +140,13 @@ export class IoRedisStore implements KvStore {
 		if (current !== null) {
 			const parsed = Number(current);
 			if (Number.isNaN(parsed))
-				throw new BaseError({
-					message: KV_STORE_ERROR_KEYS.NOT_INTEGER
-				});
+				throw new BaseError(KV_STORE_ERROR_KEYS.NOT_INTEGER);
 		}
 
 		if (amount === 1)
-			return await this._client.decr(key);
+			return this._client.decr(key);
 
-		return await this._client.decrby(key, amount);
+		return this._client.decrby(key, amount);
 	}
 
 	/**
@@ -192,7 +182,7 @@ export class IoRedisStore implements KvStore {
 	 * @returns Time to live in seconds, -1 if key has no expiration, -2 if key does not exist
 	 */
 	public async ttl(key: string): Promise<number> {
-		return await this._client.ttl(key);
+		return this._client.ttl(key);
 	}
 
 	/**
@@ -204,8 +194,6 @@ export class IoRedisStore implements KvStore {
 		const keys = await this._client.keys('*');
 		if (keys.length === 0)
 			return 0;
-
-		const result = await this._client.del(...keys);
-		return result;
+		return this._client.del(...keys);
 	}
 }

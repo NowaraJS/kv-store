@@ -1,1 +1,1 @@
-export { KV_STORE_ERROR_KEYS } from './kvStoreErrorKeys';
+export { KV_STORE_ERROR_KEYS } from './kv-store-error-keys';
