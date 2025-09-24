@@ -1,4 +1,16 @@
 
+## v1.1.6
+
+[compare changes](https://github.com/NowaraJS/kv-store/compare/v1.1.5...v1.1.6)
+
+### 📦 Build
+
+- **📦:** [Update Dependencies] ([7df918a](https://github.com/NowaraJS/kv-store/commit/7df918a))
+
+### ❤️ Contributors
+
+- Komiroko <komiriko@pm.me>
+
 ## v1.1.5
 
 [compare changes](https://github.com/NowaraJS/kv-store/compare/v1.1.4...v1.1.5)
