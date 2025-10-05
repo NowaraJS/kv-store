@@ -1,4 +1,28 @@
 
+## v1.1.7
+
+[compare changes](https://github.com/NowaraJS/kv-store/compare/v1.1.6...v1.1.7)
+
+### 📦 Build
+
+- **📦:** [Update devDependencies to latest versions] ([c5abbd4](https://github.com/NowaraJS/kv-store/commit/c5abbd4))
+
+### 🦉 Chore
+
+- **🦉:** [Remove Dependabot configuration file] ([078baea](https://github.com/NowaraJS/kv-store/commit/078baea))
+
+### 🧪 Tests
+
+- **🧪:** [Convert MemoryStore tests to concurrent execution] ([af67f76](https://github.com/NowaraJS/kv-store/commit/af67f76))
+
+### 🤖 CI
+
+- **🤖:** [Refactor CI/CD workflows and add Bun setup actions] ([8a3774e](https://github.com/NowaraJS/kv-store/commit/8a3774e))
+
+### ❤️ Contributors
+
+- Komiroko <komiriko@pm.me>
+
 ## v1.1.6
 
 [compare changes](https://github.com/NowaraJS/kv-store/compare/v1.1.5...v1.1.6)
