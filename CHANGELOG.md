@@ -1,4 +1,34 @@
 
+## v1.2.0
+
+[compare changes](https://github.com/NowaraJS/kv-store/compare/v1.1.7...v1.2.0)
+
+### 🚀 Enhancements
+
+- **🚀:** [Add Bun Redis key-value store implementation] ([1cdbc61](https://github.com/NowaraJS/kv-store/commit/1cdbc61))
+
+### 📖 Documentation
+
+- **📖:** [remove tsdoc of ioredis and memory store] ([538f63c](https://github.com/NowaraJS/kv-store/commit/538f63c))
+- **📖:** [Add Bun Redis store documentation and examples] ([746b8b9](https://github.com/NowaraJS/kv-store/commit/746b8b9))
+
+### 📦 Build
+
+- **📦:** [Add BunRedisStore entrypoint to build process] ([26e3e81](https://github.com/NowaraJS/kv-store/commit/26e3e81))
+- **📦:** [Update dependencies in package.json] ([319ec69](https://github.com/NowaraJS/kv-store/commit/319ec69))
+
+### 🌊 Types
+
+- **🌊:** [Update connect and close methods to allow void return type] ([1e3cf51](https://github.com/NowaraJS/kv-store/commit/1e3cf51))
+
+### 🦉 Chore
+
+- **🦉:** [Update .gitignore to include sandbox directory] ([37c5665](https://github.com/NowaraJS/kv-store/commit/37c5665))
+
+### ❤️ Contributors
+
+- Komiroko <komiriko@pm.me>
+
 ## v1.1.7
 
 [compare changes](https://github.com/NowaraJS/kv-store/compare/v1.1.6...v1.1.7)
