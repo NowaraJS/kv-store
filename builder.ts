@@ -20,6 +20,10 @@ await Bun.build({
 	],
 	root: './source',
 	entrypoints: [
+
+		// # ————————— BunRedisStore ————————— #
+		'./source/bun-redis/index.ts',
+
 		// # ————————— Enums ————————— #
 		'./source/enums/index.ts',
 

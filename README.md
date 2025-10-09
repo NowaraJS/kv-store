@@ -9,11 +9,13 @@
 	- [🔧 Installation](#-installation)
 	- [⚙️ Usage](#-usage)
 		- [Memory Store](#memory-store)
+		- [Redis Store (Bun Redis)](#redis-store-bun-redis)
 		- [Redis Store (IoRedis)](#redis-store-ioredis)
 		- [Custom Store Implementation](#custom-store-implementation)
 	- [📚 API Reference](#-api-reference)
 		- [KvStore Interface](#kvstore-interface)
 		- [MemoryStore](#memorystore)
+		- [BunRedisStore](#bunredisstore)
 		- [IoRedisStore](#ioredisstore)
 	- [🧪 Testing](#-testing)
 	- [🔧 Development](#-development)
@@ -30,7 +32,7 @@ This library is perfect for applications that need to abstract their storage lay
 
 - 🔌 **Unified Interface**: Common API for different storage backends
 - 💾 **Memory Store**: Built-in in-memory storage with TTL support and automatic cleanup
-- 🔴 **Redis Support**: Redis adapter using IoRedis client
+- 🔴 **Redis Support**: Redis adapters using Bun's native Redis client or IoRedis
 - 🏗️ **Extensible**: Easy to implement custom storage adapters
 - ⏰ **TTL Support**: Time-to-live functionality for keys
 - 🔢 **Atomic Operations**: Increment/decrement operations
@@ -43,7 +45,8 @@ This library is perfect for applications that need to abstract their storage lay
 bun add @nowarajs/kv-store @nowarajs/error
 ```
 
-> For Redis support, you'll also need to install IoRedis:
+> For Redis support
+You can use either the Bun Redis client with the `BunRedisStore` (no additional dependencies required), or IoRedis with the `IoRedisStore`. If you choose IoRedis, you'll need to install it:
 ```bash
 bun add ioredis
 ```
@@ -76,6 +79,37 @@ store.decrement('counter', 2) // Returns 3
 // Key management
 store.expire('user:123', 300) // Set expiration to 5 minutes
 store.del('user:123') // Delete key
+```
+
+### Redis Store (Bun Redis)
+
+```ts
+import { BunRedisStore } from '@nowarajs/kv-store'
+
+// Create Redis store with Bun's native Redis client
+const store = new BunRedisStore('redis://127.0.0.1:6379')
+
+// Or with options
+const storeWithOptions = new BunRedisStore('redis://127.0.0.1:6379', {
+	// Bun Redis options
+})
+
+// Connect to Redis
+await store.connect()
+
+// Same API as memory store, but async
+await store.set('user:123', { name: 'John', age: 30 })
+const user = await store.get<{ name: string; age: number }>('user:123')
+
+// With TTL
+await store.set('session:abc', 'session-data', 3600)
+
+// Atomic operations
+await store.increment('counter', 5)
+await store.decrement('counter', 2)
+
+// Close connection when done
+store.close()
 ```
 
 ### Redis Store (IoRedis)
