@@ -24,9 +24,7 @@
 
 ## 📝 Description
 
-**KV Store** is a flexible key-value store interface library that provides a unified `KvStore` API allowing custom storage implementations. It includes built-in adapters for Redis (via IoRedis) and in-memory storage by default.
-
-This library is perfect for applications that need to abstract their storage layer, allowing easy switching between different storage backends without changing your application code.
+**KV Store** is a flexible key-value store interface library that provides a unified `KvStore` API allowing custom storage implementations. It comes with built-in adapters for in-memory storage (`MemoryStore`) and Redis storage (`BunRedisStore` and `IoRedisStore`). You can also create your own custom storage adapters by implementing the `KvStore` interface.
 
 ## ✨ Features
 
