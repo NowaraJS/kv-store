@@ -1,4 +1,28 @@
 
+## v1.2.1
+
+[compare changes](https://github.com/NowaraJS/kv-store/compare/v1.2.0...v1.2.1)
+
+### 📖 Documentation
+
+- **📖:** [Update README description for clarity and completeness] ([35d9c07](https://github.com/NowaraJS/kv-store/commit/35d9c07))
+
+### 📦 Build
+
+- **📦:** [Update dependencies in package.json] ([51e0cb3](https://github.com/NowaraJS/kv-store/commit/51e0cb3))
+
+### 🦉 Chore
+
+- **🦉:** [Add semver to changelog entries] ([da0ba3d](https://github.com/NowaraJS/kv-store/commit/da0ba3d))
+
+### 🎨 Styles
+
+- **🎨:** [Enhance ESLint configuration for better code quality] ([98138a0](https://github.com/NowaraJS/kv-store/commit/98138a0))
+
+### ❤️ Contributors
+
+- Komiroko <komiriko@pm.me>
+
 ## v1.2.0
 
 [compare changes](https://github.com/NowaraJS/kv-store/compare/v1.1.7...v1.2.0)
