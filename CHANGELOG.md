@@ -1,4 +1,24 @@
 
+## v1.2.2
+
+[compare changes](https://github.com/NowaraJS/kv-store/compare/v1.2.1...v1.2.2)
+
+### 📦 Build
+
+- **📦:** [Update devDependencies for improved compatibility] ([ede9afe](https://github.com/NowaraJS/kv-store/commit/ede9afe))
+
+### 🦉 Chore
+
+- **🦉:** [Add .zed to .gitignore for IDE/editor files] ([f0a1fa5](https://github.com/NowaraJS/kv-store/commit/f0a1fa5))
+
+### 🤖 CI
+
+- **🤖:** [Rename CI workflow from main-ci to main-test] ([a9436d2](https://github.com/NowaraJS/kv-store/commit/a9436d2))
+
+### ❤️ Contributors
+
+- Komiroko <komiriko@pm.me>
+
 ## v1.2.1
 
 [compare changes](https://github.com/NowaraJS/kv-store/compare/v1.2.0...v1.2.1)

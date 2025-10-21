@@ -1,6 +1,6 @@
 {
 	"name": "@nowarajs/kv-store",
-	"version": "1.2.1",
+	"version": "1.2.2",
 	"author": "NowaraJS",
 	"description": "A flexible key-value store interface library that provides a unified KvStore API allowing custom storage implementations. Includes built-in adapters for Redis (RedisStore) and in-memory storage (MemoryStore) by default.",
 	"type": "module",
