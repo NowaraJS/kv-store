@@ -1,4 +1,16 @@
 
+## v1.2.3
+
+[compare changes](https://github.com/NowaraJS/kv-store/compare/v1.2.2...v1.2.3)
+
+### 📦 Build
+
+- **📦:** [Update dependencies for improved compatibility] - Updated @nowarajs/error from ^1.3.7 to ^1.3.8 - Updated ioredis from ^5.8.1 to ^5.8.2 ([704af04](https://github.com/NowaraJS/kv-store/commit/704af04))
+
+### ❤️ Contributors
+
+- Komiroko <komiriko@pm.me>
+
 ## v1.2.2
 
 [compare changes](https://github.com/NowaraJS/kv-store/compare/v1.2.1...v1.2.2)
