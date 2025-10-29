@@ -21,11 +21,19 @@ export class BunRedisStore implements KvStore {
 	}
 
 	public async connect(): Promise<void> {
-		await this._client.connect();
+		try {
+			await this._client.connect();
+		} catch (e) {
+			throw new BaseError(KV_STORE_ERROR_KEYS.CONNECTION_FAILED, e);
+		}
 	}
 
 	public close?(): void {
-		this._client.close();
+		try {
+			this._client.close();
+		} catch (e) {
+			throw new BaseError(KV_STORE_ERROR_KEYS.CLOSING_CONNECTION_FAILED, e);
+		}
 	}
 
 	public async get<T = unknown>(key: string): Promise<T | null> {
