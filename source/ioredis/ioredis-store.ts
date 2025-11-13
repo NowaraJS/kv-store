@@ -1,5 +1,5 @@
 
-import { BaseError } from '@nowarajs/error';
+import { InternalError } from '@nowarajs/error';
 import { Redis, type RedisOptions } from 'ioredis';
 
 import { KV_STORE_ERROR_KEYS } from '#/enums/kv-store-error-keys';
@@ -28,7 +28,7 @@ export class IoRedisStore implements KvStore {
 		try {
 			await this._client.connect();
 		} catch (e) {
-			throw new BaseError(KV_STORE_ERROR_KEYS.CONNECTION_FAILED, e);
+			throw new InternalError(KV_STORE_ERROR_KEYS.CONNECTION_FAILED, e);
 		}
 	}
 
@@ -36,7 +36,7 @@ export class IoRedisStore implements KvStore {
 		try {
 			await this._client.quit();
 		} catch (e) {
-			throw new BaseError(KV_STORE_ERROR_KEYS.CLOSING_CONNECTION_FAILED, e);
+			throw new InternalError(KV_STORE_ERROR_KEYS.CLOSING_CONNECTION_FAILED, e);
 		}
 	}
 
@@ -64,25 +64,21 @@ export class IoRedisStore implements KvStore {
 	}
 
 	public async increment(key: string, amount = 1): Promise<number> {
-		const current = await this._client.get(key);
-		if (current !== null && isNaN(Number(current)))
-			throw new BaseError(KV_STORE_ERROR_KEYS.NOT_INTEGER);
-
-		if (amount === 1)
-			return this._client.incr(key);
-
-		return this._client.incrby(key, amount);
+		try {
+			const number = await this._client.incrby(key, amount);
+			return number;
+		} catch (e) {
+			throw new InternalError(KV_STORE_ERROR_KEYS.NOT_INTEGER, e);
+		}
 	}
 
 	public async decrement(key: string, amount = 1): Promise<number> {
-		const current = await this._client.get(key);
-		if (current !== null && isNaN(Number(current)))
-			throw new BaseError(KV_STORE_ERROR_KEYS.NOT_INTEGER);
-
-		if (amount === 1)
-			return this._client.decr(key);
-
-		return this._client.decrby(key, amount);
+		try {
+			const number = await this._client.decrby(key, amount);
+			return number;
+		} catch (e) {
+			throw new InternalError(KV_STORE_ERROR_KEYS.NOT_INTEGER, e);
+		}
 	}
 
 	public async del(key: string): Promise<boolean> {
