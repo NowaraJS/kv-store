@@ -1,5 +1,5 @@
 
-import { BaseError } from '@nowarajs/error';
+import { InternalError } from '@nowarajs/error';
 import { Redis, type RedisOptions } from 'ioredis';
 
 import { KV_STORE_ERROR_KEYS } from '#/enums/kv-store-error-keys';
@@ -28,7 +28,7 @@ export class IoRedisStore implements KvStore {
 		try {
 			await this._client.connect();
 		} catch (e) {
-			throw new BaseError(KV_STORE_ERROR_KEYS.CONNECTION_FAILED, e);
+			throw new InternalError(KV_STORE_ERROR_KEYS.CONNECTION_FAILED, e);
 		}
 	}
 
@@ -36,7 +36,7 @@ export class IoRedisStore implements KvStore {
 		try {
 			await this._client.quit();
 		} catch (e) {
-			throw new BaseError(KV_STORE_ERROR_KEYS.CLOSING_CONNECTION_FAILED, e);
+			throw new InternalError(KV_STORE_ERROR_KEYS.CLOSING_CONNECTION_FAILED, e);
 		}
 	}
 
@@ -68,7 +68,7 @@ export class IoRedisStore implements KvStore {
 			const number = await this._client.incrby(key, amount);
 			return number;
 		} catch (e) {
-			throw new BaseError(KV_STORE_ERROR_KEYS.NOT_INTEGER, e);
+			throw new InternalError(KV_STORE_ERROR_KEYS.NOT_INTEGER, e);
 		}
 	}
 
@@ -77,7 +77,7 @@ export class IoRedisStore implements KvStore {
 			const number = await this._client.decrby(key, amount);
 			return number;
 		} catch (e) {
-			throw new BaseError(KV_STORE_ERROR_KEYS.NOT_INTEGER, e);
+			throw new InternalError(KV_STORE_ERROR_KEYS.NOT_INTEGER, e);
 		}
 	}
 

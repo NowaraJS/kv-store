@@ -1,4 +1,4 @@
-import { BaseError } from '@nowarajs/error';
+import { InternalError } from '@nowarajs/error';
 
 import { KV_STORE_ERROR_KEYS } from '#/enums/kv-store-error-keys';
 import type { KvStore } from '#/types/kv-store';
@@ -60,7 +60,7 @@ export class MemoryStore implements KvStore {
 		const entry = this._store.get(key);
 
 		if (current !== null && typeof current !== 'number')
-			throw new BaseError(KV_STORE_ERROR_KEYS.NOT_INTEGER);
+			throw new InternalError(KV_STORE_ERROR_KEYS.NOT_INTEGER);
 
 		const currentValue = current ?? 0;
 		const newValue = currentValue + amount;
@@ -76,7 +76,7 @@ export class MemoryStore implements KvStore {
 		const entry = this._store.get(key);
 
 		if (current !== null && typeof current !== 'number')
-			throw new BaseError(KV_STORE_ERROR_KEYS.NOT_INTEGER);
+			throw new InternalError(KV_STORE_ERROR_KEYS.NOT_INTEGER);
 
 		const currentValue = current ?? 0;
 		const newValue = currentValue - amount;
