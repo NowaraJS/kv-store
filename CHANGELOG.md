@@ -1,4 +1,50 @@
 
+## v1.4.0
+
+[compare changes](https://github.com/NowaraJS/kv-store/compare/v1.3.0...v1.4.0)
+
+### 🚀 Enhancements
+
+- **🚀:** [add input validation and maxSize to MemoryStore] ([f28818b](https://github.com/NowaraJS/kv-store/commit/f28818b))
+
+### 🔧 Fixes
+
+- **🔧:** [harden BunRedisStore with validation and security] ([ecc66ab](https://github.com/NowaraJS/kv-store/commit/ecc66ab))
+- **🔧:** [harden IoRedisStore with validation and security] ([78a8ac7](https://github.com/NowaraJS/kv-store/commit/78a8ac7))
+
+### 📖 Documentation
+
+- **📖:** [fix MemoryStoreEntry TSDoc comment] ([d53db0f](https://github.com/NowaraJS/kv-store/commit/d53db0f))
+- **📖:** [Update README] ([d63b44c](https://github.com/NowaraJS/kv-store/commit/d63b44c))
+
+### 📦 Build
+
+- **📦:** [update devDependencies for improved compatibility] ## Build Changes - Updated `@eslint/js` from `^9.39.1` to `^9.39.2` - Updated `@nowarajs/error` from `^1.3.10` to `^1.4.0` - Updated `@stylistic/eslint-plugin` from `^5.5.0` to `^5.7.0` - Updated `@types/bun` from `^1.3.2` to `^1.3.5` - Updated `eslint` from `^9.39.1` to `^9.39.2` - Updated `globals` from `^16.5.0` to `^17.0.0` - Updated `ioredis` from `^5.8.2` to `^5.9.1` - Updated `typescript-eslint` from `^8.46.4` to `^8.52.0` ## Description These updates ensure better compatibility and performance with the latest versions of the dependencies used in the project. ([0a4362b](https://github.com/NowaraJS/kv-store/commit/0a4362b))
+
+### 🌊 Types
+
+- **🌊:** [add new error keys for validation] ([d509ad1](https://github.com/NowaraJS/kv-store/commit/d509ad1))
+
+### 🦉 Chore
+
+- **🦉:** [Add new agents for code review, documentation, performance, security, and testing] ([2d4d436](https://github.com/NowaraJS/kv-store/commit/2d4d436))
+
+### 🧪 Tests
+
+- **🧪:** [update test for integer-only increment amounts] ([4d00eee](https://github.com/NowaraJS/kv-store/commit/4d00eee))
+
+### 🎨 Styles
+
+- **🎨:** [update formatting in .gitignore and .npmignore files] ([b4c3850](https://github.com/NowaraJS/kv-store/commit/b4c3850))
+
+### 🤖 CI
+
+- **🤖:** [update workflow to euse OIDC for npm] ([0f1fa1a](https://github.com/NowaraJS/kv-store/commit/0f1fa1a))
+
+### ❤️ Contributors
+
+- Komiriko <komiriko@pm.me>
+
 ## v1.3.0
 
 [compare changes](https://github.com/NowaraJS/kv-store/compare/v1.2.3...v1.3.0)
