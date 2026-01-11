@@ -1,41 +1,31 @@
-# 🗃️ NowaraJS - kv-store
+# 🗃️ NowaraJS KV Store
+
+Switching between in-memory caching and Redis shouldn't require rewriting your entire storage layer. I built NowaraJS KV Store to provide a unified interface that lets you swap backends without touching your business logic.
+
+## Why this package?
+
+The goal is simple: **Write once, deploy anywhere.**
+
+Whether you're prototyping locally with `MemoryStore` or scaling with Redis in production, the API stays the same. No vendor lock-in, no adapter headaches.
 
 ## 📌 Table of Contents
 
-- [🗃️ KV Store](#-kv-store)
-	- [📌 Table of Contents](#-table-of-contents)
-	- [📝 Description](#-description)
-	- [✨ Features](#-features)
-	- [🔧 Installation](#-installation)
-	- [⚙️ Usage](#-usage)
-		- [Memory Store](#memory-store)
-		- [Redis Store (Bun Redis)](#redis-store-bun-redis)
-		- [Redis Store (IoRedis)](#redis-store-ioredis)
-		- [Custom Store Implementation](#custom-store-implementation)
-	- [📚 API Reference](#-api-reference)
-		- [KvStore Interface](#kvstore-interface)
-		- [MemoryStore](#memorystore)
-		- [BunRedisStore](#bunredisstore)
-		- [IoRedisStore](#ioredisstore)
-	- [🧪 Testing](#-testing)
-	- [🔧 Development](#-development)
-	- [⚖️ License](#-license)
-	- [📧 Contact](#-contact)
-
-## 📝 Description
-
-**KV Store** is a flexible key-value store interface library that provides a unified `KvStore` API allowing custom storage implementations. It comes with built-in adapters for in-memory storage (`MemoryStore`) and Redis storage (`BunRedisStore` and `IoRedisStore`). You can also create your own custom storage adapters by implementing the `KvStore` interface.
+- [Features](#-features)
+- [Installation](#-installation)
+- [Usage](#-usage)
+- [API Reference](#-api-reference)
+- [License](#-license)
+- [Contact](#-contact)
 
 ## ✨ Features
 
-- 🔌 **Unified Interface**: Common API for different storage backends
-- 💾 **Memory Store**: Built-in in-memory storage with TTL support and automatic cleanup
-- 🔴 **Redis Support**: Redis adapters using Bun's native Redis client or IoRedis
-- 🏗️ **Extensible**: Easy to implement custom storage adapters
-- ⏰ **TTL Support**: Time-to-live functionality for keys
-- 🔢 **Atomic Operations**: Increment/decrement operations
-- 📦 **Type-Safe**: Full TypeScript support with generics
-- 🧹 **Auto Cleanup**: Automatic expired key cleanup for memory store
+- 🔌 **Unified Interface**: One API, multiple backends. Swap storage without code changes.
+- 💾 **Memory Store**: Fast in-memory storage with TTL and automatic cleanup.
+- 🔴 **Redis Ready**: Native Bun Redis or IoRedis — your choice.
+- 🏗️ **Extensible**: Implement `KvStore` and plug in your own backend.
+- ⏰ **TTL Support**: Keys expire automatically when you need them to.
+- 🔢 **Atomic Operations**: Built-in increment/decrement for counters.
+- 📦 **Type-Safe**: Full TypeScript generics, no `any` in sight.
 
 ## 🔧 Installation
 
@@ -43,163 +33,130 @@
 bun add @nowarajs/kv-store @nowarajs/error
 ```
 
-> For Redis support
-You can use either the Bun Redis client with the `BunRedisStore` (no additional dependencies required), or IoRedis with the `IoRedisStore`. If you choose IoRedis, you'll need to install it:
-```bash
-bun add ioredis
-```
+> **Redis support:** Use Bun's native Redis with `BunRedisStore` (zero extra deps), or install IoRedis for `IoRedisStore`:
+> ```bash
+> bun add ioredis
+> ```
 
 ## ⚙️ Usage
 
-### Memory Store
+### MemoryStore - Local Development & Testing
+
+Perfect for prototyping or when you don't need persistence. TTL works out of the box, and expired keys clean themselves up.
 
 ```ts
-import { MemoryStore } from '@nowarajs/kv-store'
+import { MemoryStore } from '@nowarajs/kv-store';
 
-// Create a memory store with default cleanup interval (5 minutes)
-const store = new MemoryStore()
+const store = new MemoryStore();
 
-// Or with custom cleanup interval (in milliseconds)
-const storeWithCustomCleanup = new MemoryStore(60000) // 1 minute
+// Store a user, retrieve it later
+store.set('user:123', { name: 'John', age: 30 });
+const user = store.get<{ name: string; age: number }>('user:123');
 
-// Basic operations
-store.set('user:123', { name: 'John', age: 30 })
-const user = store.get<{ name: string; age: number }>('user:123')
+// Session that expires in 1 hour
+store.set('session:abc', 'session-data', 3600);
 
-// With TTL (time-to-live in seconds)
-store.set('session:abc', 'session-data', 3600) // Expires in 1 hour
-
-// Atomic operations
-store.set('counter', 0)
-store.increment('counter', 5) // Returns 5
-store.decrement('counter', 2) // Returns 3
-
-// Key management
-store.expire('user:123', 300) // Set expiration to 5 minutes
-store.del('user:123') // Delete key
+// Atomic counter operations
+store.set('counter', 0);
+store.increment('counter', 5); // → 5
+store.decrement('counter', 2); // → 3
 ```
 
-### Redis Store (Bun Redis)
+### BunRedisStore - Production with Bun
+
+When you're ready to scale. Same API, now backed by Redis.
 
 ```ts
-import { BunRedisStore } from '@nowarajs/kv-store'
+import { BunRedisStore } from '@nowarajs/kv-store';
 
-// Create Redis store with Bun's native Redis client
-const store = new BunRedisStore('redis://127.0.0.1:6379')
+const store = new BunRedisStore('redis://127.0.0.1:6379');
+await store.connect();
 
-// Or with options
-const storeWithOptions = new BunRedisStore('redis://127.0.0.1:6379', {
-	// Bun Redis options
-})
+// Exact same API, just async
+await store.set('user:123', { name: 'John', age: 30 });
+const user = await store.get<{ name: string; age: number }>('user:123');
 
-// Connect to Redis
-await store.connect()
+await store.set('session:abc', 'session-data', 3600);
+await store.increment('counter', 5);
 
-// Same API as memory store, but async
-await store.set('user:123', { name: 'John', age: 30 })
-const user = await store.get<{ name: string; age: number }>('user:123')
-
-// With TTL
-await store.set('session:abc', 'session-data', 3600)
-
-// Atomic operations
-await store.increment('counter', 5)
-await store.decrement('counter', 2)
-
-// Close connection when done
-store.close()
+store.close();
 ```
 
-### Redis Store (IoRedis)
+### IoRedisStore - When You Need More Control
+
+Full IoRedis configuration for advanced Redis setups.
 
 ```ts
-import { IoRedisStore } from '@nowarajs/kv-store'
+import { IoRedisStore } from '@nowarajs/kv-store';
 
-// Create Redis store
 const store = new IoRedisStore({
-	host: 'localhost',
-	port: 6379,
-	// ... other IoRedis options
-})
+    host: 'localhost',
+    port: 6379,
+    // ... any IoRedis option
+});
 
-// Connect to Redis
-await store.connect()
+await store.connect();
 
-// Same API as memory store, but async
-await store.set('user:123', { name: 'John', age: 30 })
-const user = await store.get<{ name: string; age: number }>('user:123')
+// Same unified API
+await store.set('user:123', { name: 'John', age: 30 });
+const user = await store.get<{ name: string; age: number }>('user:123');
 
-// With TTL
-await store.set('session:abc', 'session-data', 3600)
-
-// Atomic operations
-await store.increment('counter', 5)
-await store.decrement('counter', 2)
-
-// Close connection when done
-await store.close()
+await store.close();
 ```
 
-### Custom Store Implementation
+### Custom Store - Bring Your Own Backend
+
+Implementing `KvStore` is straightforward. Here's the interface you need to satisfy:
 
 ```ts
-import type { KvStore } from '@nowarajs/kv-store'
+import type { KvStore } from '@nowarajs/kv-store';
 
 class MyCustomStore implements KvStore {
-	public async connect?(): Promise<void> {
-		// Custom connection logic
-	}
+    public get<T = unknown>(key: string): T | null | Promise<T | null> {
+        // Your logic here
+    }
 
-	public async close?(): Promise<void> {
-		// Custom cleanup logic
-	}
+    public set<T = unknown>(key: string, value: T, ttlSec?: number): void | Promise<void> {
+        // Your logic here
+    }
 
-	public get<T = unknown>(key: string): T | null | Promise<T | null> {
-		// Custom get implementation
-	}
+    public increment(key: string, amount?: number): number | Promise<number> {
+        // Your logic here
+    }
 
-	public set<T = unknown>(key: string, value: T, ttlSec?: number): void | Promise<void> {
-		// Custom set implementation
-	}
+    public decrement(key: string, amount?: number): number | Promise<number> {
+        // Your logic here
+    }
 
-	public increment(key: string, amount = 1): number | Promise<number> {
-		// Custom increment implementation
-	}
+    public del(key: string): boolean | Promise<boolean> {
+        // Your logic here
+    }
 
-	public decrement(key: string, amount = 1): number | Promise<number> {
-		// Custom decrement implementation
-	}
+    public expire(key: string, ttlSec: number): boolean | Promise<boolean> {
+        // Your logic here
+    }
 
-	public del(key: string): boolean | Promise<boolean> {
-		// Custom delete implementation
-	}
+    public ttl(key: string): number | Promise<number> {
+        // Your logic here
+    }
 
-	public expire(key: string, ttlSec: number): boolean | Promise<boolean> {
-		// Custom expiration implementation
-	}
-
-	public exists(key: string): boolean | Promise<boolean> {
-		// Custom exists check implementation
-	}
-
-	public clear(): void | Promise<void> {
-		// Custom clear all implementation
-	}
+    public clean(): number | Promise<number> {
+        // Your logic here
+    }
 }
+```
 ```
 
 ## 📚 API Reference
 
-You can find the complete API reference documentation for `kv-store` at:
-
-- [Reference Documentation](https://nowarajs.github.io/kv-store/)
+Full docs: [nowarajs.github.io/kv-store](https://nowarajs.github.io/kv-store/)
 
 ## ⚖️ License
 
-Distributed under the MIT License. See [LICENSE](./LICENSE) for more information.
+MIT - Feel free to use it.
 
 ## 📧 Contact
 
 - Mail: [nowarajs@pm.me](mailto:nowarajs@pm.me)
-- Github: [Project link](https://github.com/NowaraJS/kv-store)
+- GitHub: [NowaraJS](https://github.com/NowaraJS)
 
